@@ -22,10 +22,29 @@
     /** You will need to implement your search and 
      * return the appropriate object here. */
 
-    var result = {
-        "SearchTerm": "",
+    const result = {
+        "SearchTerm": searchTerm,
         "Results": []
     };
+
+    console.log(scannedTextObj)
+
+    scannedTextObj.forEach(book => {
+
+        const content = book.Content;
+        const isbn = book.ISBN;
+
+        content.forEach(line => {
+
+            if (line.Text.includes(` ${searchTerm} `)) {
+                result.Results.push({
+                    "ISBN": isbn,
+                    "Page": line.Page,
+                    "Line": line.Line
+                });
+            }
+        });
+    });
     
     return result; 
 }
