@@ -27,8 +27,6 @@
         "Results": []
     };
 
-    console.log(scannedTextObj)
-
     scannedTextObj.forEach(book => {
 
         const content = book.Content;
