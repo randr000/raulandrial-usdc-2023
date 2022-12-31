@@ -27,6 +27,8 @@
         "Results": []
     };
 
+    const re = new RegExp(`\\W+${searchTerm}\\W*`);
+
     scannedTextObj.forEach(book => {
 
         const content = book.Content;
@@ -34,7 +36,7 @@
 
         content.forEach(line => {
 
-            if (line.Text.includes(` ${searchTerm} `)) {
+            if (line.Text.match(re)) {
                 result.Results.push({
                     "ISBN": isbn,
                     "Page": line.Page,
@@ -72,6 +74,23 @@ const twentyLeaguesIn = [
     }
 ]
     
+/** Example output object */
+const twentyLeaguesOut3 = {
+    "SearchTerm": "and",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        },
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 10
+        }
+    ]
+}
+
 /** Example output object */
 const twentyLeaguesOut = {
     "SearchTerm": "the",
@@ -118,4 +137,13 @@ if (test2result.Results.length == 1) {
     console.log("FAIL: Test 2");
     console.log("Expected:", twentyLeaguesOut.Results.length);
     console.log("Received:", test2result.Results.length);
+}
+
+const test3result = findSearchTermInBooks("and", twentyLeaguesIn);
+if (JSON.stringify(twentyLeaguesOut3) === JSON.stringify(test3result)) {
+    console.log("PASS: Test 3");
+} else {
+    console.log("FAIL: Test 3");
+    console.log("Expected:", twentyLeaguesOut3);
+    console.log("Received:", test3result);
 }
