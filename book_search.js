@@ -72,7 +72,7 @@ const twentyLeaguesIn = [
             } 
         ] 
     }
-]
+];
     
 /** Example output object */
 const twentyLeaguesOut3 = {
@@ -89,7 +89,7 @@ const twentyLeaguesOut3 = {
             "Line": 10
         }
     ]
-}
+};
 
 /** Example output object */
 const twentyLeaguesOut = {
@@ -101,7 +101,7 @@ const twentyLeaguesOut = {
             "Line": 9
         }
     ]
-}
+};
 
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
@@ -120,30 +120,62 @@ const twentyLeaguesOut = {
  * */
 
 /** We can check that, given a known input, we get a known output. */
-const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
-if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
-    console.log("PASS: Test 1");
-} else {
-    console.log("FAIL: Test 1");
-    console.log("Expected:", twentyLeaguesOut);
-    console.log("Received:", test1result);
+// const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
+// if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
+//     console.log("PASS: Test 1");
+// } else {
+//     console.log("FAIL: Test 1");
+//     console.log("Expected:", twentyLeaguesOut);
+//     console.log("Received:", test1result);
+// }
+
+// /** We could choose to check that we get the right number of results. */
+// const test2result = findSearchTermInBooks("the", twentyLeaguesIn); 
+// if (test2result.Results.length == 1) {
+//     console.log("PASS: Test 2");
+// } else {
+//     console.log("FAIL: Test 2");
+//     console.log("Expected:", twentyLeaguesOut.Results.length);
+//     console.log("Received:", test2result.Results.length);
+// }
+
+// const test3result = findSearchTermInBooks("and", twentyLeaguesIn);
+// if (JSON.stringify(twentyLeaguesOut3) === JSON.stringify(test3result)) {
+//     console.log("PASS: Test 3");
+// } else {
+//     console.log("FAIL: Test 3");
+//     console.log("Expected:", twentyLeaguesOut3);
+//     console.log("Received:", test3result);
+// }
+
+function testOutputEqualsResult(searchTerm, books, testCount, output) {
+    const result = findSearchTermInBooks(searchTerm, books)
+    if (JSON.stringify(output) === JSON.stringify(result)) {
+        console.log(`PASS: Test ${testCount}`);
+    } else {
+        console.log(`FAIL: Test ${testCount}`);
+        console.log("Expected:", output);
+        console.log("Received:", result);
+    }
 }
 
-/** We could choose to check that we get the right number of results. */
-const test2result = findSearchTermInBooks("the", twentyLeaguesIn); 
-if (test2result.Results.length == 1) {
-    console.log("PASS: Test 2");
-} else {
-    console.log("FAIL: Test 2");
-    console.log("Expected:", twentyLeaguesOut.Results.length);
-    console.log("Received:", test2result.Results.length);
-}
+// function testOutputLengthEqualsResultLength() {
 
-const test3result = findSearchTermInBooks("and", twentyLeaguesIn);
-if (JSON.stringify(twentyLeaguesOut3) === JSON.stringify(test3result)) {
-    console.log("PASS: Test 3");
-} else {
-    console.log("FAIL: Test 3");
-    console.log("Expected:", twentyLeaguesOut3);
-    console.log("Received:", test3result);
-}
+// }
+
+
+(() => {
+    const tests = [
+        idx => testOutputEqualsResult('the', twentyLeaguesIn, idx + 1, twentyLeaguesOut),
+        idx => testOutputEqualsResult('and', twentyLeaguesIn, idx + 1, twentyLeaguesOut3)
+    ];
+
+    console.log('Running Tests...');
+
+    tests.forEach((func, idx) => {
+        func(idx);
+    });
+
+    console.log('Testing complete!');
+
+})();
