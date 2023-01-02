@@ -120,8 +120,15 @@ const andOutput = {
 
 /** We can check that, given a known input, we get a known output. */
 
-function testOutputEqualsResult(searchTerm, books, testCount, output) {
-    const result = findSearchTermInBooks(searchTerm, books)
+/**
+ * Tests the findSearchTermInBooks function given certain inputs and expected output.
+ * @param {string} searchTerm - The word or term we're searching for.
+ * @param {JSON} scannedTextObj - A JSON object representing the scanned text.
+ * @param {Number} testCount - An integer indicating the number of the test.
+ * @param {JSON} output - A JSON object representing the expected output.
+ */
+function testOutputEqualsResult(searchTerm, scannedTextObj, testCount, output) {
+    const result = findSearchTermInBooks(searchTerm, scannedTextObj)
     if (JSON.stringify(output) === JSON.stringify(result)) {
         console.log(`PASS: Test ${testCount}`);
     } else {
