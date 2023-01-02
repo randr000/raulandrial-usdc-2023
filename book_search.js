@@ -74,8 +74,19 @@ const twentyLeaguesIn = [
     }
 ];
     
-/** Example output object */
-const twentyLeaguesOut3 = {
+/** Example output objects */
+const theOutput = {
+    "SearchTerm": "the",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        }
+    ]
+};
+
+const andOutput = {
     "SearchTerm": "and",
     "Results": [
         {
@@ -87,18 +98,6 @@ const twentyLeaguesOut3 = {
             "ISBN": "9780000528531",
             "Page": 31,
             "Line": 10
-        }
-    ]
-};
-
-/** Example output object */
-const twentyLeaguesOut = {
-    "SearchTerm": "the",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 9
         }
     ]
 };
@@ -120,33 +119,6 @@ const twentyLeaguesOut = {
  * */
 
 /** We can check that, given a known input, we get a known output. */
-// const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
-// if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
-//     console.log("PASS: Test 1");
-// } else {
-//     console.log("FAIL: Test 1");
-//     console.log("Expected:", twentyLeaguesOut);
-//     console.log("Received:", test1result);
-// }
-
-// /** We could choose to check that we get the right number of results. */
-// const test2result = findSearchTermInBooks("the", twentyLeaguesIn); 
-// if (test2result.Results.length == 1) {
-//     console.log("PASS: Test 2");
-// } else {
-//     console.log("FAIL: Test 2");
-//     console.log("Expected:", twentyLeaguesOut.Results.length);
-//     console.log("Received:", test2result.Results.length);
-// }
-
-// const test3result = findSearchTermInBooks("and", twentyLeaguesIn);
-// if (JSON.stringify(twentyLeaguesOut3) === JSON.stringify(test3result)) {
-//     console.log("PASS: Test 3");
-// } else {
-//     console.log("FAIL: Test 3");
-//     console.log("Expected:", twentyLeaguesOut3);
-//     console.log("Received:", test3result);
-// }
 
 function testOutputEqualsResult(searchTerm, books, testCount, output) {
     const result = findSearchTermInBooks(searchTerm, books)
@@ -159,15 +131,13 @@ function testOutputEqualsResult(searchTerm, books, testCount, output) {
     }
 }
 
-// function testOutputLengthEqualsResultLength() {
-
-// }
-
-
+/**
+ * Automatically run tests when page is loaded
+ */
 (() => {
     const tests = [
-        idx => testOutputEqualsResult('the', twentyLeaguesIn, idx + 1, twentyLeaguesOut),
-        idx => testOutputEqualsResult('and', twentyLeaguesIn, idx + 1, twentyLeaguesOut3)
+        idx => testOutputEqualsResult('the', twentyLeaguesIn, idx + 1, theOutput),
+        idx => testOutputEqualsResult('and', twentyLeaguesIn, idx + 1, andOutput)
     ];
 
     console.log('Running Tests...');
