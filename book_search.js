@@ -234,26 +234,26 @@ function testOutputEqualsResult(searchTerm, scannedTextObj, testCount, output) {
  */
 (() => {
     const tests = [
-        i => testOutputEqualsResult('the', twentyLeaguesIn, i + 1, theOutput),
-        i => testOutputEqualsResult('The', twentyLeaguesIn, i + 1, TheOutput),
-        i => testOutputEqualsResult('and', twentyLeaguesIn, i + 1, andOutput),
-        i => testOutputEqualsResult('Canadian', twentyLeaguesIn, i + 1, CanadianOutput),
-        i => testOutputEqualsResult("Canadian's", twentyLeaguesIn, i + 1, CanadiansOutput),
-        i => testOutputEqualsResult('profound', twentyLeaguesIn, i + 1, profoundOutput),
-        i => testOutputEqualsResult('now', twentyLeaguesIn, i + 1, nowOutput),
-        i => testOutputEqualsResult('dark', twentyLeaguesIn, i + 1, darkOutput),
-        i => testOutputEqualsResult('dog', twentyLeaguesIn, i + 1, dogOutput),
-        i => testOutputEqualsResult('ever', twentyLeaguesIn, i + 1, everOutput),
-        i => testOutputEqualsResult('mom', twentyLeaguesIn, i + 1, momOutput),
-        i => testOutputEqualsResult('eve', twentyLeaguesIn, i + 1, eveOutput),
-        i => testOutputEqualsResult('how', twentyLeaguesIn, i + 1, howOutput),
-        i => testOutputEqualsResult('dog', noBooksList, i + 1, dogOutput),
-        i => testOutputEqualsResult('dog', noScannedTextBook, i + 1, dogOutput)
+        i => testOutputEqualsResult('the', twentyLeaguesIn, i, theOutput),
+        i => testOutputEqualsResult('The', twentyLeaguesIn, i, TheOutput),
+        i => testOutputEqualsResult('and', twentyLeaguesIn, i, andOutput),
+        i => testOutputEqualsResult('Canadian', twentyLeaguesIn, i, CanadianOutput),
+        i => testOutputEqualsResult("Canadian's", twentyLeaguesIn, i, CanadiansOutput),
+        i => testOutputEqualsResult('profound', twentyLeaguesIn, i, profoundOutput),
+        i => testOutputEqualsResult('now', twentyLeaguesIn, i, nowOutput),
+        i => testOutputEqualsResult('dark', twentyLeaguesIn, i, darkOutput),
+        i => testOutputEqualsResult('dog', twentyLeaguesIn, i, dogOutput),
+        i => testOutputEqualsResult('ever', twentyLeaguesIn, i, everOutput),
+        i => testOutputEqualsResult('mom', twentyLeaguesIn, i, momOutput),
+        i => testOutputEqualsResult('eve', twentyLeaguesIn, i, eveOutput),
+        i => testOutputEqualsResult('how', twentyLeaguesIn, i, howOutput),
+        i => testOutputEqualsResult('dog', noBooksList, i, dogOutput),
+        i => testOutputEqualsResult('dog', noScannedTextBook, i, dogOutput)
     ];
 
     console.log('Running Tests...');
 
-    tests.forEach((func, idx) => func(idx));
+    tests.forEach((func, idx) => func(idx + 1));
 
     console.log('Testing complete!');
 
