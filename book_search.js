@@ -130,6 +130,12 @@ function returnNoResults(term) {
     }
 }
 
+const darkOutput = returnNoResults('dark');
+const dogOutput = returnNoResults('dog');
+const everOutput = returnNoResults('ever');
+const momOutput = returnNoResults('mom');
+const eveOutput = returnNoResults('eve');
+
 /**
  * Used as a template to return the data for a match for a specific line in the twentyLeaguesIn object
  * @param {number} n - The number of the line a match is supposed to be in the twentyLeaguesIn object
@@ -186,12 +192,6 @@ const howOutput = {
     "SearchTerm": "how",
     "Results": [LINE10]
 }
-
-const darkOutput = returnNoResults('dark');
-const dogOutput = returnNoResults('dog');
-const everOutput = returnNoResults('ever');
-const momOutput = returnNoResults('mom');
-const eveOutput = returnNoResults('eve');
 
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
