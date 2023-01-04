@@ -126,6 +126,17 @@ const theOutput = {
     ]
 };
 
+const TheOutput = {
+    "SearchTerm": "The",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+};
+
 const andOutput = {
     "SearchTerm": "and",
     "Results": [
@@ -191,16 +202,6 @@ const darkOutput = {
     "Results": []
 };
 
-const AndOutput = {
-    "SearchTerm": "And",
-    "Results": []
-};
-
-const NowOutput = {
-    "SearchTerm": "Now",
-    "Results": []
-};
-
 const dogOutput = {
     "SearchTerm": "dog",
     "Results": []
@@ -220,6 +221,17 @@ const eveOutput = {
     "SearchTerm": "eve",
     "Results": []
 };
+
+const howOutput = {
+    "SearchTerm": "how",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 10
+        }
+    ]
+}
 
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
@@ -263,18 +275,18 @@ function testOutputEqualsResult(searchTerm, scannedTextObj, testCount, output) {
 (() => {
     const tests = [
         i => testOutputEqualsResult('the', twentyLeaguesIn, i + 1, theOutput),
+        i => testOutputEqualsResult('The', twentyLeaguesIn, i + 1, TheOutput),
         i => testOutputEqualsResult('and', twentyLeaguesIn, i + 1, andOutput),
         i => testOutputEqualsResult('Canadian', twentyLeaguesIn, i + 1, CanadianOutput),
         i => testOutputEqualsResult("Canadian's", twentyLeaguesIn, i + 1, CanadiansOutput),
         i => testOutputEqualsResult('profound', twentyLeaguesIn, i + 1, profoundOutput),
         i => testOutputEqualsResult('now', twentyLeaguesIn, i + 1, nowOutput),
         i => testOutputEqualsResult('dark', twentyLeaguesIn, i + 1, darkOutput),
-        i => testOutputEqualsResult('And', twentyLeaguesIn, i + 1, AndOutput),
-        i => testOutputEqualsResult('Now', twentyLeaguesIn, i + 1, NowOutput),
         i => testOutputEqualsResult('dog', twentyLeaguesIn, i + 1, dogOutput),
         i => testOutputEqualsResult('ever', twentyLeaguesIn, i + 1, everOutput),
         i => testOutputEqualsResult('mom', twentyLeaguesIn, i + 1, momOutput),
         i => testOutputEqualsResult('eve', twentyLeaguesIn, i + 1, eveOutput),
+        i => testOutputEqualsResult('how', twentyLeaguesIn, i + 1, howOutput),
         i => testOutputEqualsResult('dog', noBooksList, i + 1, dogOutput),
         i => testOutputEqualsResult('dog', noScannedTextBook, i + 1, dogOutput)
     ];
