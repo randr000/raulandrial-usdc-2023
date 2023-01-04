@@ -117,123 +117,81 @@ const noScannedTextBook = [
 ];
     
 /** Example output objects */
+
+/**
+ * Used as a template for when output is expected to contain an empty results list
+ * @param {string} term - The word that was searched
+ * @returns {JSON} - Object with empty results list
+ */
+function returnNoResults(term) {
+    return {
+        "SearchTerm": term,
+        "Results": []
+    }
+}
+
+/**
+ * Used as a template to return the data for a match for a specific line in the twentyLeaguesIn object
+ * @param {number} n - The number of the line a match is supposed to be in the twentyLeaguesIn object
+ * @returns {JSON} - An object contain the ISBN, page number, and line number
+ */
+function returnLineNumObj(n) {
+    return {
+        "ISBN": "9780000528531",
+        "Page": 31,
+        "Line": n,
+    };
+}
+
+const LINE8 = returnLineNumObj(8);
+const LINE9 = returnLineNumObj(9);
+const LINE10 = returnLineNumObj(10);
+
 const theOutput = {
     "SearchTerm": "the",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 9
-        }
-    ]
+    "Results": [LINE9]
 };
 
 const TheOutput = {
     "SearchTerm": "The",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 8
-        }
-    ]
+    "Results": [LINE8]
 };
 
 const andOutput = {
     "SearchTerm": "and",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 9
-        },
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 10
-        }
-    ]
+    "Results": [LINE9, LINE10]
 };
 
 const CanadianOutput = {
     "SearchTerm": "Canadian",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 9
-        }
-    ]
+    "Results": [LINE9]
 };
 
 const CanadiansOutput = {
     "SearchTerm": "Canadian's",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 9
-        }
-    ]
+    "Results": [LINE9]
 };
 
 const profoundOutput = {
     "SearchTerm": "profound",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 9
-        }
-    ]
+    "Results": [LINE9]
 };
 
 const nowOutput = {
     "SearchTerm": "now",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 8
-        }
-    ]
-};
-
-const darkOutput = {
-    "SearchTerm": "dark",
-    "Results": []
-};
-
-const dogOutput = {
-    "SearchTerm": "dog",
-    "Results": []
-};
-
-const everOutput = {
-    "SearchTerm": "ever",
-    "Results": []
-};
-
-const momOutput = {
-    "SearchTerm": "mom",
-    "Results": []
-};
-
-const eveOutput = {
-    "SearchTerm": "eve",
-    "Results": []
+    "Results": [LINE8]
 };
 
 const howOutput = {
     "SearchTerm": "how",
-    "Results": [
-        {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 10
-        }
-    ]
+    "Results": [LINE10]
 }
+
+const darkOutput = returnNoResults('dark');
+const dogOutput = returnNoResults('dog');
+const everOutput = returnNoResults('ever');
+const momOutput = returnNoResults('mom');
+const eveOutput = returnNoResults('eve');
 
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
