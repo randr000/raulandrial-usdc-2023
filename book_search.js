@@ -253,9 +253,7 @@ function testOutputEqualsResult(searchTerm, scannedTextObj, testCount, output) {
 
     console.log('Running Tests...');
 
-    tests.forEach((func, idx) => {
-        func(idx);
-    });
+    tests.forEach((func, idx) => func(idx));
 
     console.log('Testing complete!');
 
