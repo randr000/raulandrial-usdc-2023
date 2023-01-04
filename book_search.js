@@ -27,55 +27,59 @@
         "Results": []
     };
 
-    /*
-    * Matches any line where searchTerm is not surrounded by an alphanumeric
-    * character
-    */
-    const re = new RegExp(`[^a-zA-Z0-9]+${searchTerm}[^a-zA-Z0-9]+`);
+    if (scannedTextObj.length) {
 
-    /* 
-    * Matches any line where searchTerm is the first word of a line, may or may
-    * not be prepended with a non-alphanumeric character, and is immediately
-    * followed by one or more non-alphanumeric characters.
-    */
-    const begRe = new RegExp(`^[^a-zA-Z0-9]*${searchTerm}[^a-zA-Z0-9]+`);
+        /*
+        * Matches any line where searchTerm is not surrounded by an alphanumeric
+        * character
+        */
+        const re = new RegExp(`[^a-zA-Z0-9]+${searchTerm}[^a-zA-Z0-9]+`);
 
-    /*
-    * Matches any line where the searchTerm is prepended with a
-    * non-alphanumeric character, is at the end of a line, and may or may not be
-    * immediately followed by a non-alphanumeric character.
-    */
-    const endRe = new RegExp(`[^a-zA-Z0-9]+${searchTerm}[^a-zA-Z0-9]*$`);
+        /* 
+        * Matches any line where searchTerm is the first word of a line, may or may
+        * not be prepended with a non-alphanumeric character, and is immediately
+        * followed by one or more non-alphanumeric characters.
+        */
+        const begRe = new RegExp(`^[^a-zA-Z0-9]*${searchTerm}[^a-zA-Z0-9]+`);
 
-    // Matches any line where the searchTerm is immediately followed by a hypen.
-    const hyphenRe = new RegExp(`${searchTerm}-`);
+        /*
+        * Matches any line where the searchTerm is prepended with a
+        * non-alphanumeric character, is at the end of a line, and may or may not be
+        * immediately followed by a non-alphanumeric character.
+        */
+        const endRe = new RegExp(`[^a-zA-Z0-9]+${searchTerm}[^a-zA-Z0-9]*$`);
 
-    scannedTextObj.forEach(book => {
+        // Matches any line where the searchTerm is immediately followed by a hypen.
+        const hyphenRe = new RegExp(`${searchTerm}-`);
 
-        const content = book.Content;
-        const isbn = book.ISBN;
+        scannedTextObj.forEach(book => {
 
-        content.forEach(line => {
+            const content = book.Content;
+            const isbn = book.ISBN;
 
-            if (line.Text.match(re) ||
-                line.Text.match(begRe) ||
-                line.Text.match(endRe)) {
-                
-                if(!line.Text.match(hyphenRe)) {
-                    result.Results.push({
-                        "ISBN": isbn,
-                        "Page": line.Page,
-                        "Line": line.Line
-                    });
+            content.forEach(line => {
+
+                if (line.Text.match(re) ||
+                    line.Text.match(begRe) ||
+                    line.Text.match(endRe)) {
+                    
+                    if(!line.Text.match(hyphenRe)) {
+                        result.Results.push({
+                            "ISBN": isbn,
+                            "Page": line.Page,
+                            "Line": line.Line
+                        });
+                    }
                 }
-            }
+            });
         });
-    });
+
+    }
     
     return result; 
 }
 
-/** Example input object. */
+/** Example input objects. */
 const twentyLeaguesIn = [
     {
         "Title": "Twenty Thousand Leagues Under the Sea",
@@ -97,6 +101,16 @@ const twentyLeaguesIn = [
                 "Text": "eyes were, I asked myself how he had managed to see, and"
             } 
         ] 
+    }
+];
+
+const noBooksList = [];
+
+const noScannedTextBook = [
+    {
+        "Title": "This book has no text",
+        "ISBN": "0000",
+        "Content": []
     }
 ];
     
@@ -260,7 +274,9 @@ function testOutputEqualsResult(searchTerm, scannedTextObj, testCount, output) {
         i => testOutputEqualsResult('dog', twentyLeaguesIn, i + 1, dogOutput),
         i => testOutputEqualsResult('ever', twentyLeaguesIn, i + 1, everOutput),
         i => testOutputEqualsResult('mom', twentyLeaguesIn, i + 1, momOutput),
-        i => testOutputEqualsResult('eve', twentyLeaguesIn, i + 1, eveOutput)
+        i => testOutputEqualsResult('eve', twentyLeaguesIn, i + 1, eveOutput),
+        i => testOutputEqualsResult('dog', noBooksList, i + 1, dogOutput),
+        i => testOutputEqualsResult('dog', noScannedTextBook, i + 1, dogOutput)
     ];
 
     console.log('Running Tests...');
