@@ -27,6 +27,7 @@
         "Results": []
     };
 
+    // Only searches for matches if there is at least one book in scannedTextObj
     if (scannedTextObj.length) {
 
         /*
@@ -63,6 +64,7 @@
                     line.Text.match(begRe) ||
                     line.Text.match(endRe)) {
                     
+                    // Exclude matches followed by hyphen
                     if(!line.Text.match(hyphenRe)) {
                         result.Results.push({
                             "ISBN": isbn,
