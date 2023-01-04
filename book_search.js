@@ -27,7 +27,28 @@
         "Results": []
     };
 
-    const re = new RegExp(`\\W+${searchTerm}\\W*`);
+    /*
+    * Matches any line where searchTerm is not surrounded by an alphanumeric
+    * character
+    */
+    const re = new RegExp(`[^a-zA-Z0-9]+${searchTerm}[^a-zA-Z0-9]+`);
+
+    /* 
+    * Matches any line where searchTerm is the first word of a line, may or may
+    * not be prepended with a non-alphanumeric character, and is immediately
+    * followed by one or more non-alphanumeric characters.
+    */
+    const begRe = new RegExp(`^[^a-zA-Z0-9]*${searchTerm}[^a-zA-Z0-9]+`);
+
+    /*
+    * Matches any line where the searchTerm is prepended with a
+    * non-alphanumeric character, is at the end of a line, and may or may not be
+    * immediately followed by a non-alphanumeric character.
+    */
+    const endRe = new RegExp(`[^a-zA-Z0-9]+${searchTerm}[^a-zA-Z0-9]*$`);
+
+    // Matches any line where the searchTerm is immediately followed by a hypen.
+    const hyphenRe = new RegExp(`${searchTerm}-`);
 
     scannedTextObj.forEach(book => {
 
@@ -36,12 +57,17 @@
 
         content.forEach(line => {
 
-            if (line.Text.match(re)) {
-                result.Results.push({
-                    "ISBN": isbn,
-                    "Page": line.Page,
-                    "Line": line.Line
-                });
+            if (line.Text.match(re) ||
+                line.Text.match(begRe) ||
+                line.Text.match(endRe)) {
+                
+                if(!line.Text.match(hyphenRe)) {
+                    result.Results.push({
+                        "ISBN": isbn,
+                        "Page": line.Page,
+                        "Line": line.Line
+                    });
+                }
             }
         });
     });
@@ -102,6 +128,85 @@ const andOutput = {
     ]
 };
 
+const CanadianOutput = {
+    "SearchTerm": "Canadian",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        }
+    ]
+};
+
+const CanadiansOutput = {
+    "SearchTerm": "Canadian's",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        }
+    ]
+};
+
+const profoundOutput = {
+    "SearchTerm": "profound",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        }
+    ]
+};
+
+const nowOutput = {
+    "SearchTerm": "now",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+};
+
+const darkOutput = {
+    "SearchTerm": "dark",
+    "Results": []
+};
+
+const AndOutput = {
+    "SearchTerm": "And",
+    "Results": []
+};
+
+const NowOutput = {
+    "SearchTerm": "Now",
+    "Results": []
+};
+
+const dogOutput = {
+    "SearchTerm": "dog",
+    "Results": []
+};
+
+const everOutput = {
+    "SearchTerm": "ever",
+    "Results": []
+};
+
+const momOutput = {
+    "SearchTerm": "mom",
+    "Results": []
+};
+
+const eveOutput = {
+    "SearchTerm": "eve",
+    "Results": []
+};
+
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___| 
@@ -143,8 +248,19 @@ function testOutputEqualsResult(searchTerm, scannedTextObj, testCount, output) {
  */
 (() => {
     const tests = [
-        idx => testOutputEqualsResult('the', twentyLeaguesIn, idx + 1, theOutput),
-        idx => testOutputEqualsResult('and', twentyLeaguesIn, idx + 1, andOutput)
+        i => testOutputEqualsResult('the', twentyLeaguesIn, i + 1, theOutput),
+        i => testOutputEqualsResult('and', twentyLeaguesIn, i + 1, andOutput),
+        i => testOutputEqualsResult('Canadian', twentyLeaguesIn, i + 1, CanadianOutput),
+        i => testOutputEqualsResult("Canadian's", twentyLeaguesIn, i + 1, CanadiansOutput),
+        i => testOutputEqualsResult('profound', twentyLeaguesIn, i + 1, profoundOutput),
+        i => testOutputEqualsResult('now', twentyLeaguesIn, i + 1, nowOutput),
+        i => testOutputEqualsResult('dark', twentyLeaguesIn, i + 1, darkOutput),
+        i => testOutputEqualsResult('And', twentyLeaguesIn, i + 1, AndOutput),
+        i => testOutputEqualsResult('Now', twentyLeaguesIn, i + 1, NowOutput),
+        i => testOutputEqualsResult('dog', twentyLeaguesIn, i + 1, dogOutput),
+        i => testOutputEqualsResult('ever', twentyLeaguesIn, i + 1, everOutput),
+        i => testOutputEqualsResult('mom', twentyLeaguesIn, i + 1, momOutput),
+        i => testOutputEqualsResult('eve', twentyLeaguesIn, i + 1, eveOutput)
     ];
 
     console.log('Running Tests...');
